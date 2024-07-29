@@ -54,6 +54,7 @@ const AuthForm = () => {
       const data = await response.json();
       if (isLogin) {
         AuthCtx.login(data.idToken);
+        
         history.replace('/')
       }
       
