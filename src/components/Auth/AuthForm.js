@@ -54,7 +54,9 @@ const AuthForm = () => {
       const data = await response.json();
       if (isLogin) {
         AuthCtx.login(data.idToken);
-        
+        const expirationTime = new Date().getTime()+5 * 60 * 1000;
+        localStorage.setItem("token",data.idToken);
+        localStorage.setItem('expirationTime', expirationTime);
         history.replace('/')
       }
       
