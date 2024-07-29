@@ -1,13 +1,15 @@
 import { useContext, useState } from "react";
 import classes from "./AuthForm.module.css";
 import { AuthContext } from "../ContextApi/AuthContext";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const AuthForm = () => {
   const [authData, setAuthData] = useState({ email: "", password: "" });
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
-  
-  const AuthCtx= useContext(AuthContext);
+  const history=useHistory();
+
+  const AuthCtx = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -26,10 +28,12 @@ const AuthForm = () => {
     let message;
 
     if (isLogin) {
-      url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCp4cYa6QJIIcMqlFPd28Uuh06UvjM4Z_o";
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCp4cYa6QJIIcMqlFPd28Uuh06UvjM4Z_o";
       message = "Login Successfully";
     } else {
-      url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCp4cYa6QJIIcMqlFPd28Uuh06UvjM4Z_o";
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCp4cYa6QJIIcMqlFPd28Uuh06UvjM4Z_o";
       message = "Account Created Successfully";
     }
 
@@ -45,17 +49,12 @@ const AuthForm = () => {
           "Content-Type": "application/json",
         },
       });
-      
 
       const data = await response.json();
-      if(isLogin){
-        AuthCtx.login(data.idToken)
-
+      if (isLogin) {
+        AuthCtx.login(data.idToken);
+        history.replace('/')
       }
-      
-     
-     
-      
 
       if (!response.ok) {
         let errorMessage = "Authentication failed!";
