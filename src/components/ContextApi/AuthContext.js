@@ -21,6 +21,7 @@ import { createContext, useState } from "react";
 
     const contextValue={
         token:token,
+        setToken:setToken,
         isLoggedIn:isLoggedIn,
         logout:logOutHandler,
         login:loginHandler

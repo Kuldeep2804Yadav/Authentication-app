@@ -8,6 +8,7 @@ const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const history=useHistory();
+  
 
   const AuthCtx = useContext(AuthContext);
 
@@ -55,6 +56,7 @@ const AuthForm = () => {
         AuthCtx.login(data.idToken);
         history.replace('/')
       }
+      
 
       if (!response.ok) {
         let errorMessage = "Authentication failed!";
