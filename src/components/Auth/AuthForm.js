@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./AuthForm.module.css";
+import { AuthContext } from "../ContextApi/AuthContext";
 
 const AuthForm = () => {
   const [authData, setAuthData] = useState({ email: "", password: "" });
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
+  
+  const AuthCtx= useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -42,8 +45,17 @@ const AuthForm = () => {
           "Content-Type": "application/json",
         },
       });
+      
 
       const data = await response.json();
+      if(isLogin){
+        AuthCtx.login(data.idToken)
+
+      }
+      
+     
+     
+      
 
       if (!response.ok) {
         let errorMessage = "Authentication failed!";
